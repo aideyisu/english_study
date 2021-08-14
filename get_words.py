@@ -13,7 +13,7 @@ def get_new_words():
 
 # 1-2-5-7-14 dats to review
 def get_review_words():
-    result = {}
+    result = json.loads("{}")
     with open("words.csv", 'r+',encoding='UTF-8') as file:
         all_data = file.readlines()
         try:

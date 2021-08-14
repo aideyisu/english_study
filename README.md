@@ -15,8 +15,6 @@ Good!
 
 ## TODO
 
-1 Out of order
+1 Wrong book
 
-2 Wrong book
-
-3 Data analysis
+2 Data analysis

@@ -1,6 +1,9 @@
 
 import xlwt
+# 单词乱序
+import random 
 from datetime import datetime
+
 from side import site_write_line_style
 import get_words
 
@@ -44,10 +47,12 @@ new_words = get_words.get_new_words()
 # 写入单词
 y_start = 1
 x_site = 1
-for item in new_words:
+new_word_keys = list(new_words.keys())
+random.shuffle(new_word_keys)
+for word_key in new_word_keys:
     # worksheet.write(y_start,x_site, label = f'{item}')
     style = site_write_line_style()
-    worksheet.write(y_start,x_site, f'{item}', style)
+    worksheet.write(y_start,x_site, f'{word_key}', style)
     worksheet.write(y_start,x_site+1, ' ', style)
     worksheet.write(y_start,x_site+2, ' ', style)
     y_start += 1
@@ -56,10 +61,13 @@ for item in new_words:
 review_words = get_words.get_review_words()
 y_start = 5
 x_start = 1
-for day in review_words:
-    for item in review_words[day]:
+for one_day in review_words:
+    oneday_review_word_keys = list(review_words[one_day].keys())
+    random.shuffle(oneday_review_word_keys)
+
+    for review_word in oneday_review_word_keys:
         style = site_write_line_style()
-        worksheet.write(y_start,x_start,  f'{item}', style)
+        worksheet.write(y_start,x_start,  f'{review_word}', style)
         worksheet.write(y_start,x_start+1, ' ', style)
         worksheet.write(y_start,x_start+2, ' ', style)
         y_start += 1
