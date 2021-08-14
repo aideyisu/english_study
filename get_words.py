@@ -1,14 +1,28 @@
 # read files 
-'''
-https://docs.python.org/3/library/csv.html
-'''
-import csv
 
-with open("words.csv", 'r+') as file:
-    all_data = csv.reader(file)
+import json 
 
-    for item in all_data:
-        # print(', '.join(item))
-        for j in item:
-            print(eval(j))
-    
+def get_new_words():
+    result = {}
+    with open("words.csv", 'r+') as file:
+
+        all_data = file.readlines()
+        for item in all_data:
+            result = json.loads(item)
+            # TODO 等待优化
+            break
+    return result
+
+def get_review_words():
+    result = {}
+    with open("words.csv", 'r+') as file:
+        all_data = file.readlines()
+        for item in all_data:
+            result = json.loads(item)
+            # TODO 等待优化
+            break
+    return result
+
+
+A = get_new_words()
+print(A)
