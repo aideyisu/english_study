@@ -13,10 +13,10 @@ Good!
 
 
 
-1 find words
+## TODO
 
-2 Python write xls
+1 Out of order
 
-3 xls turn to pdf 
+2 Wrong book
 
-4 print pdf 
+3 Data analysis
