@@ -1,15 +1,20 @@
 # read files 
 import json 
 
+def get_lines():
+    with open("words.csv", 'r+',encoding='UTF-8') as file:
+        all_data = file.readlines()
+        return len(all_data)
+
 def get_new_words():
-    with open("words.csv", 'r+') as file:
+    with open("words.csv", 'r+',encoding='UTF-8') as file:
         all_data = file.readlines()
         return json.loads(all_data[-1])
 
 # 1-2-5-7-14 dats to review
 def get_review_words():
     result = {}
-    with open("words.csv", 'r+') as file:
+    with open("words.csv", 'r+',encoding='UTF-8') as file:
         all_data = file.readlines()
         try:
             result['1'] = json.loads(all_data[-2])
