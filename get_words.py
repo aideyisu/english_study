@@ -11,7 +11,7 @@ def get_new_words():
         all_data = file.readlines()
         return json.loads(all_data[-1])
 
-# 1-2-5-7-14 dats to review
+# 1-2-5-7-14 days to review
 def get_review_words():
     result = json.loads("{}")
     with open("words.csv", 'r+',encoding='UTF-8') as file:
@@ -43,7 +43,9 @@ def get_review_words():
     return result
 
 
-# A = get_new_words()
-# print(A)
-# B = get_review_words()
-# print(B)
+def get_exercise_words(days):
+    with open("exercise_words.csv", 'r+',encoding='UTF-8') as file:
+        all_data = file.readlines()
+        return json.loads(all_data[days-1]) if days != -1 else json.loads(all_data[-1])
+
+

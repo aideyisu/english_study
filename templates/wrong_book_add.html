@@ -12,24 +12,25 @@
 </head>
 <body>
 	<ul class="breadcrumb">
-		<li><a href="/">错题本   第{{ lines+1 }}天</a></li>
+		<li><a href="/">wrong book   </a></li>
 	</ul>
 	<div id="info">
 		<form action="" enctype='multipart/form-data' method='POST'>
 			<div id="info-header">
-				today english {{ lines+1 }}
+				wrong book 
 			</div>
-		{% for i in numbers %}
+		{% for i in exercise_words %}
 			<div id="age" class="info-input-box">
-				<input type="text" placeholder="中文{{i}}" name=up_cn_{{i}}>
-			</div>
-			<div id="phone" class="info-input-box" >
-				<input type="text" placeholder="英文{{i}}" name=up_en_{{i}}>
+				{{ number }} {{ i }}   {{ exercise_words[i] }}
+				<select name=up_cn_{{i}} placeholder="性别">
+					<option value=1> 对 </option>
+					<option value=0> 错 </option>
+				</select>
 			</div>
 		{% endfor %}
 
 		<div id="file">
-			<input type="submit" value="上传" onclick="alert('提交成功')">
+			<input type="submit" value="上传" onclick="alert('提交成功')" style="width:100px;height:60px" >
 		</div>
         
     </form>

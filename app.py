@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
-from write_words import write_new_words
-from get_words import get_lines
-from main import output_today_exercise
+from write_words import write_new_words, write_wrong_words
+from get_words import get_lines, get_exercise_words
+from exercise import output_today_exercise
 app = Flask(__name__)
 
 @app.route("/")
@@ -40,7 +40,15 @@ def wrong_book_check():
 
 @app.route("/wrong_book_add", methods=["GET", "POST"])
 def wrong_book_add():
-    return render_template("wrong_book_add.html")        
+    exercise_words = get_exercise_words(-1)
+    if request.method == 'POST':
+        all_post_data = request.form.to_dict()
+
+        write_wrong_words(all_post_data, exercise_words)
+
+        return redirect("/")
+
+    return render_template("wrong_book_add.html", exercise_words = exercise_words, lines = len(exercise_words))        
 
 
 app.run(debug = True, host = '0.0.0.0', port = 5000)

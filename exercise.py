@@ -1,4 +1,5 @@
 
+import json
 import xlwt
 # 单词乱序
 import random 
@@ -14,7 +15,16 @@ def get_datetime():
     return datetime.now().strftime("%Y-%m-%d")
 
 
+# 保存当日全部单词
+def save_today_words(word_dict):
+    with open("exercise_words.csv", "a+") as file:
+        file.write(json.dumps(word_dict)+'\n')
+
+
+
 def output_today_exercise():
+    # 备份
+    today_word_list = {}
     # 创建一个workbook 设置编码
     workbook = xlwt.Workbook(encoding = 'utf-8')
     # 创建一个worksheet
@@ -43,6 +53,7 @@ def output_today_exercise():
     new_word_keys = list(new_words.keys())
     random.shuffle(new_word_keys)
     for word_key in new_word_keys:
+        today_word_list[word_key] = new_words[word_key]
         # worksheet.write(y_start,x_site, label = f'{item}')
         style = site_write_line_style()
         worksheet.write(y_start,x_site, f'{word_key}', style)
@@ -59,6 +70,7 @@ def output_today_exercise():
         random.shuffle(oneday_review_word_keys)
 
         for review_word in oneday_review_word_keys:
+            today_word_list[review_word] = review_words[one_day][review_word]
             style = site_write_line_style()
             worksheet.write(y_start,x_start,  f'{review_word}', style)
             worksheet.write(y_start,x_start+1, ' ', style)
@@ -76,5 +88,9 @@ def output_today_exercise():
     for number in range(0, 13):
         worksheet.row(number).height_mismatch = True
         worksheet.row(number).height = 775
+    # 单例保存
+    save_today_words(today_word_list)
+    
     # 保存至表格
     workbook.save(f'{get_datetime()}.xls')
+
