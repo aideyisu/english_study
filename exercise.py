@@ -21,7 +21,6 @@ def save_today_words(word_dict):
         file.write(json.dumps(word_dict)+'\n')
 
 
-
 def output_today_exercise():
     # 备份
     today_word_list = {}
@@ -42,8 +41,6 @@ def output_today_exercise():
     worksheet.write_merge(1, 3, 0, 0, f'new', style) 
     worksheet.write_merge(5, 7, 0, 0, f'review', style) 
 
-
-    # write xls
     # 读取新单词
     new_words = get_words.get_new_words()
 
@@ -70,7 +67,7 @@ def output_today_exercise():
         random.shuffle(oneday_review_word_keys)
 
         for review_word in oneday_review_word_keys:
-            today_word_list[review_word] = review_words[one_day][review_word]
+            today_word_list[review_word] =review_words[one_day][review_word]
             style = site_write_line_style()
             worksheet.write(y_start,x_start,  f'{review_word}', style)
             worksheet.write(y_start,x_start+1, ' ', style)

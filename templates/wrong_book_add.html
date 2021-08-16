@@ -22,7 +22,7 @@
 		{% for i in exercise_words %}
 			<div id="age" class="info-input-box">
 				{{ number }} {{ i }}   {{ exercise_words[i] }}
-				<select name=up_cn_{{i}} placeholder="性别">
+				<select name={{i}} placeholder="性别">
 					<option value=1> 对 </option>
 					<option value=0> 错 </option>
 				</select>
