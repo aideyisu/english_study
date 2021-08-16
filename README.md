@@ -9,12 +9,23 @@ Good!
 
 
 
+## RUN
+
+you can use this command to start tool
+
+```python
+python app.py
+```
 
 
 
 
-## TODO
 
-1 Wrong book
+## TODO LIST
 
-2 Data analysis
+| Number | TODO NAME     | Describe                                           |
+| ------ | ------------- | -------------------------------------------------- |
+| 1      | Data analysis | such as time used, wrong status, and line chart... |
+|        |               |                                                    |
+|        |               |                                                    |
+
