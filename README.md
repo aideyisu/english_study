@@ -26,6 +26,6 @@ python app.py
 | Number | TODO NAME     | Describe                                           |
 | ------ | ------------- | -------------------------------------------------- |
 | 1      | Data analysis | such as time used, wrong status, and line chart... |
-|        |               |                                                    |
+| 2      | Show answers  | output answers file with exercise file             |
 |        |               |                                                    |
 

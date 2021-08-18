@@ -17,6 +17,4 @@ worksheet.write(1, 0, 'Formatted value', style) # 带样式的写入
 # 设置单元格宽度
 worksheet.col(0).width = 3333
 
-
-
 workbook.save('formatting.xls') # 保存文件
