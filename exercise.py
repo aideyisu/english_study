@@ -62,12 +62,15 @@ def output_today_exercise():
     review_words = get_words.get_review_words()
     y_start = 5
     x_start = 1
+
+    one_day_review_word_keys_list = {}
     for one_day in review_words:
         oneday_review_word_keys = list(review_words[one_day].keys())
         random.shuffle(oneday_review_word_keys)
+        one_day_review_word_keys_list[one_day] = oneday_review_word_keys
 
-        for review_word in oneday_review_word_keys:
-            today_word_list[review_word] =review_words[one_day][review_word]
+    for one_day in one_day_review_word_keys_list:
+        for review_word in one_day_review_word_keys_list[one_day]:
             style = site_write_line_style()
             worksheet.write(y_start,x_start,  f'{review_word}', style)
             worksheet.write(y_start,x_start+1, ' ', style)
@@ -90,9 +93,10 @@ def output_today_exercise():
     
     # 保存至表格
     workbook.save(f'{get_datetime()}.xls')
+    # 同时生成答案
+    output_today_exercise_answers(new_words, new_word_keys, review_words, one_day_review_word_keys_list)
 
-def output_today_exercise_answers():
-    # TODO
+def output_today_exercise_answers(new_words, new_word_keys,  review_words, one_day_review_word_keys_list):
     # 创建一个workbook 设置编码
     workbook = xlwt.Workbook(encoding = 'utf-8')
     # 创建一个worksheet
@@ -110,34 +114,28 @@ def output_today_exercise_answers():
     worksheet.write_merge(1, 3, 0, 0, f'new', style) 
     worksheet.write_merge(5, 7, 0, 0, f'review', style) 
 
-    # 读取新单词
-    new_words = get_words.get_new_words()
-
     # 写入单词
     y_start = 1
     x_site = 1
-    new_word_keys = list(new_words.keys())
-    random.shuffle(new_word_keys)
+
+    # TODO 这里需要传进来 
     for word_key in new_word_keys:
         # worksheet.write(y_start,x_site, label = f'{item}')
         style = site_write_line_style()
         worksheet.write(y_start,x_site, f'{word_key}', style)
-        worksheet.write(y_start,x_site+1, ' ', style)
+        worksheet.write(y_start,x_site+1, f'{new_words[word_key]}', style)
         worksheet.write(y_start,x_site+2, ' ', style)
         y_start += 1
 
     # 需复习的单词
-    review_words = get_words.get_review_words()
     y_start = 5
     x_start = 1
-    for one_day in review_words:
-        oneday_review_word_keys = list(review_words[one_day].keys())
-        random.shuffle(oneday_review_word_keys)
 
-        for review_word in oneday_review_word_keys:
+    for one_day in one_day_review_word_keys_list:
+        for review_word in one_day_review_word_keys_list[one_day]:
             style = site_write_line_style()
             worksheet.write(y_start,x_start,  f'{review_word}', style)
-            worksheet.write(y_start,x_start+1, ' ', style)
+            worksheet.write(y_start,x_start+1, f'{review_words[one_day][review_word]}', style)
             worksheet.write(y_start,x_start+2, ' ', style)
             y_start += 1
 
@@ -153,7 +151,6 @@ def output_today_exercise_answers():
         worksheet.row(number).height_mismatch = True
         worksheet.row(number).height = 775
 
-    
     # 保存至表格
-    workbook.save(f'{get_datetime()}.xls')
+    workbook.save(f'{get_datetime()}_answers.xls')
 
