@@ -1,8 +1,25 @@
 from flask import Flask, render_template, request, redirect
+from flask_script import Manager, Shell
+from flask_mail import Mail, Message
+from threading import Thread
+
 from write_words import write_new_words, write_wrong_words
 from get_words import get_lines, get_exercise_words
 from exercise import output_today_exercise
 app = Flask(__name__)
+# ------------ prepare to send email
+app.config['MAIL_DEBUG'] = True             # 开启debug，便于调试看信息
+app.config['MAIL_SUPPRESS_SEND'] = False    # 发送邮件，为True则不发送
+app.config['MAIL_SERVER'] = 'smtp.qq.com'   # 邮箱服务器
+app.config['MAIL_PORT'] = 465               # 端口
+app.config['MAIL_USE_SSL'] = True           # 重要，qq邮箱需要使用SSL
+app.config['MAIL_USE_TLS'] = False          # 不需要使用TLS
+app.config['MAIL_USERNAME'] = 'xxx@qq.com'  # 填邮箱
+app.config['MAIL_PASSWORD'] = ''      # 填授权码
+app.config['MAIL_DEFAULT_SENDER'] = 'xxx@qq.com'  # 填邮箱，默认发送者
+manager = Manager(app)
+mail = Mail(app)
+
 
 @app.route("/")
 def index():
@@ -50,5 +67,23 @@ def wrong_book_add():
 
     return render_template("wrong_book_add.html", exercise_words = exercise_words, lines = len(exercise_words))        
 
+# 异步发送邮件
+def send_async_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
 
-app.run(debug = True, host = '0.0.0.0', port = 5000)
+@app.route('/send_email')
+def send_email():
+    # TODO 
+    msg = Message(subject='Hello World',
+                sender="xxx@qq.com",  # 需要使用默认发送者则不用填
+                recipients=['xxx@qq.com'])
+    # 邮件内容会以文本和html两种格式呈现，而你能看到哪种格式取决于你的邮件客户端。
+    msg.body = 'sended by flask-email'
+    msg.html = '<b>测试Flask发送邮件<b>'
+    thread = Thread(target=send_async_email, args=[app, msg])
+    thread.start()
+    return redirect("/")
+ 
+if __name__ == '__main__':
+    app.run(debug = True, host = '0.0.0.0', port = 5000)
