@@ -26,6 +26,13 @@ python app.py
 | Number | TODO NAME     | Describe                                           |
 | ------ | ------------- | -------------------------------------------------- |
 | 1      | Data analysis | such as time used, wrong status, and line chart... |
-|        |               |                                                    |
+| 2      | Send Email    | when create a exercise.Auto send email to print    |
 |        |               |                                                    |
 
+refences
+
+https://realpython.com/python-send-email/
+
+https://docs.python.org/3/library/email.examples.html
+
+https://stackoverflow.com/questions/6270782/how-to-send-an-email-with-python
