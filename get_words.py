@@ -49,3 +49,8 @@ def get_exercise_words(days):
         return json.loads(all_data[days-1]) if days != -1 else json.loads(all_data[-1])
 
 
+
+def get_email_config():
+    email_config = {}
+    # TODO read email username password and return the result
+    return email_config

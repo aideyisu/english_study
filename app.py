@@ -8,6 +8,7 @@ from get_words import get_lines, get_exercise_words
 from exercise import output_today_exercise
 app = Flask(__name__)
 # ------------ prepare to send email
+# TODO get email config with function
 app.config['MAIL_DEBUG'] = True             # 开启debug，便于调试看信息
 app.config['MAIL_SUPPRESS_SEND'] = False    # 发送邮件，为True则不发送
 app.config['MAIL_SERVER'] = 'smtp.qq.com'   # 邮箱服务器
