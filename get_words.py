@@ -1,5 +1,6 @@
 # read files 
 import json 
+import configparser
 
 def get_lines():
     with open("words.csv", 'r+',encoding='UTF-8') as file:
