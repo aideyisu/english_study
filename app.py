@@ -1,11 +1,10 @@
 from flask import Flask, render_template, request, redirect
-from flask_script import Manager, Shell
 from flask_mail import Mail, Message
 from threading import Thread
 
 from write_words import write_new_words, write_wrong_words
 from get_words import get_lines, get_exercise_words, get_config
-from exercise import output_today_exercise
+from exercise import output_today_exercise, get_datetime
 app = Flask(__name__)
 # ------------ prepare to send email
 # TODO get email config with function
@@ -18,7 +17,6 @@ app.config['MAIL_USE_TLS'] = False          # 不需要使用TLS
 app.config['MAIL_USERNAME'] = get_config('Email', 'USER')  # 填邮箱
 app.config['MAIL_PASSWORD'] = get_config('Email', 'PW')      # 填授权码
 app.config['MAIL_DEFAULT_SENDER'] = get_config('Email', 'MAIL_DEFAULT_SENDER')  # 填邮箱，默认发送者
-manager = Manager(app)
 mail = Mail(app)
 
 
@@ -75,15 +73,16 @@ def send_async_email(app, msg):
 
 @app.route('/send_email')
 def send_email():
-    # TODO 
     msg = Message(subject='Hello World',
                 sender=get_config('Email', 'MAIL_DEFAULT_SENDER'),  # 需要使用默认发送者则不用填
                 recipients=[get_config('Email', 'RECIPIENTS'), 
                             get_config('Email', 'RECIPIENTS2')]) # 主备收件人
     # 邮件内容会以文本和html两种格式呈现，而你能看到哪种格式取决于你的邮件客户端。
-    # TODO 确认邮件内容
     msg.body = 'sended by flask-email'
     msg.html = '<b>测试Flask发送邮件<b>'
+    # get_datetime
+    with app.open_resource(f'{get_datetime()}.xls') as fp:
+        msg.attach(f'{get_datetime()}.xls', "excel/xls", fp.read())
     thread = Thread(target=send_async_email, args=[app, msg])
     thread.start()
     return redirect("/")

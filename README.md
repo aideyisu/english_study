@@ -29,10 +29,6 @@ python app.py
 | 2      | Send Email    | when create a exercise.Auto send email to print    |
 |        |               |                                                    |
 
-refences
+## Reference
 
-https://realpython.com/python-send-email/
-
-https://docs.python.org/3/library/email.examples.html
-
-https://stackoverflow.com/questions/6270782/how-to-send-an-email-with-python
+https://pythonhosted.org/Flask-Mail/
