@@ -28,7 +28,7 @@ def index():
 @app.route("/excrcise")
 def excrcise():
     output_today_exercise()
-    return redirect("/")
+    return redirect("/send_email")
 
 
 @app.route("/up_load", methods=["GET", "POST"])
