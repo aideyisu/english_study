@@ -1,16 +1,19 @@
-# read files 
+'''
+
+    read files 
+    and config.ini many different config
+
+'''
 import json 
 import configparser
 
 def get_lines():
     with open("words.csv", 'r+',encoding='UTF-8') as file:
-        all_data = file.readlines()
-        return len(all_data)
+        return len(file.readlines())
 
 def get_new_words():
     with open("words.csv", 'r+',encoding='UTF-8') as file:
-        all_data = file.readlines()
-        return json.loads(all_data[-1])
+        return json.loads(file.readlines()[-1])
 
 # 1-2-5-7-14 days to review
 def get_review_words():
@@ -49,9 +52,8 @@ def get_exercise_words(days):
         all_data = file.readlines()
         return json.loads(all_data[days-1]) if days != -1 else json.loads(all_data[-1])
 
+def get_config(big, small):
+    cf = configparser.ConfigParser()
+    cf.read("config.ini")  # 读取配置文件，如果写文件的绝对路径，就可以不用os模块
+    return cf.get(f"{big}", f"{small}")  # 获取[big]中small对应的值
 
-
-def get_email_config():
-    email_config = {}
-    # TODO read email username password and return the result
-    return email_config
