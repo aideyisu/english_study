@@ -10,7 +10,7 @@ import configparser
 def get_lines():
     with open("words.csv", 'r+',encoding='UTF-8') as file:
         return len(file.readlines())
-
+ 
 def get_new_words():
     with open("words.csv", 'r+',encoding='UTF-8') as file:
         return json.loads(file.readlines()[-1])
