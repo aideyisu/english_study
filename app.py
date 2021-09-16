@@ -46,7 +46,7 @@ def up_load_today_words():
             all_post_data.get('up_en_3'),
             all_post_data.get('up_en_4'),
             )
-        return redirect("/send_email")
+        return redirect("/")
     return render_template("up_load.html", numbers=[1,2,3,4], lines = get_lines())    
 
 

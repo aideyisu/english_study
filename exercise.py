@@ -5,6 +5,7 @@ import xlwt
 import random 
 from datetime import datetime
 
+from get_words import get_lines
 from side import site_write_line_style
 import get_words
 
@@ -37,7 +38,7 @@ def output_today_exercise():
     al.horz = 0x02      # 设置水平居中
     al.vert = 0x01      # 设置垂直居中
     style.alignment = al
-    worksheet.write_merge(0, 0, 0, 7, f'{get_datetime()}       english', style)
+    worksheet.write_merge(0, 0, 0, 7, f'{get_datetime()}     english 第{get_lines()}天 ', style)
     worksheet.write_merge(1, 3, 0, 0, f'new', style) 
     worksheet.write_merge(5, 7, 0, 0, f'review', style) 
 
