@@ -1,3 +1,7 @@
+from exercise import get_datetime
+from get_words import get_lines
+
+
 from flask import Flask, request
 from flask_mail import Mail, Message
 from threading import Thread
@@ -24,13 +28,14 @@ def send_async_email(app, msg):
 
 @app.route('/')
 def index():
-    msg = Message(subject='Hello World',
+    msg = Message(subject=f'英语每日默写_{get_datetime()}_第{get_lines()}天',
                   sender="",  # 需要使用默认发送者则不用填
                   recipients=[''])
     # 邮件内容会以文本和html两种格式呈现，而你能看到哪种格式取决于你的邮件客户端。
-    msg.body = 'sended by flask-email'
-    msg.html = '<b>测试Flask发送邮件<b>'
-    # get_datetime
+    # msg.body = 'sended by flask-email'
+    # body属性没有也行=。=
+    # msg.html = '<b>测试Flask发送邮件<b>'
+    msg.html = '<b>请查收今日单词<b>'
     with app.open_resource(f'de.xls') as fp:
         msg.attach(f'de.xls', "excel/xls", fp.read())
     thread = Thread(target=send_async_email, args=[app, msg])
